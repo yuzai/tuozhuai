@@ -1,6 +1,6 @@
 ;(function(){
   function getStyle(elem,property){
-	return getComputedStyle ? getComputedStyle(elem,false)[property]: elem.currentStyle[property];
+	return getComputedStyle ? getComputedStyle(elem)[property]: elem.currentStyle[property];
   }
   var trans = (function getTransform(){
 	var divcss = document.createElement('div').style;
@@ -18,10 +18,9 @@
 	  if(trans){
 	  	var style = getStyle(elem,trans);
 	  	if(style !== 'none'){
-	  		var reg = /-?\d+/g;
+	  		var reg = /-?[0-9\.]+/g;
 	  		pos.x = Number(style.match(reg)[4]);
 	  		pos.y = Number(style.match(reg)[5]);
-
 	  	}else{
 	  		elem.style[trans] = 'translate(0,0)';
 	  		pos.x = 0;
@@ -77,15 +76,15 @@
   				x:mousePos.x-startTargetPos.x,
   				y:mousePos.y-startTargetPos.y,
   			}
-        console.log(self.dist);
   			document.addEventListener('mousemove',move,false);
   			document.addEventListener('mouseup',end,false);
 
-        document.addEventListener('touchmove',move,false);
+        document.addEventListener('touchmove',move,{passive: false});
         document.addEventListener('touchend',end,false);
   		}
   		function move(event){
         console.log(event.type);
+        event.preventDefault();
   			var mouseX = event.pageX?event.pageX:event.touches[0].pageX;
         var mouseY = event.pageY?event.pageY:event.touches[0].pageY;
 		    var Pos = {
@@ -107,4 +106,4 @@
   window.Drag = Drag;
 })();
 new Drag('div1');
-// new Drag('div2');
+new Drag('div2');
