@@ -86,6 +86,7 @@
 
         document.addEventListener('touchmove',move,{passive: false});
         document.addEventListener('touchend',end,false);
+        document.addEventListener('touchcancel',end,false);
   		}
   		function move(event){
         console.log(event.type);
