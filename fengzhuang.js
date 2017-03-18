@@ -65,7 +65,12 @@
   		var self = this;
   		this.elem.addEventListener('mousedown',start,false);
   		this.elem.addEventListener('touchstart',start,false);
+      this.elem.addEventListener('click',click,false);
+      function click(event){
+        console.log(event.type);
+      }
   		function start(event){
+        event.preventDefault();
         console.log(event.type);
   			var startTargetPos = getTargetPos(self.elem);
   			var mousePos = {
